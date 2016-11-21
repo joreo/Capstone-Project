@@ -6,4 +6,11 @@
 
     <string name="action_settings">Settings</string>
     <string name="banner_ad_unit_id">ca-app-pub-1200903431498072/1735592746</string>
+    <string name="dummytext2">Begin - 1 This is text for the modify_pics.xml 2 This is text for the modify_pics.xml
+        3 This is text for the modify_pics.xml 4 This is text for the modify_pics.xml 5 This is text for the modify_pics.xml
+        6 This is text for the modify_pics.xml 7 This is text for the modify_pics.xml 8 This is text for the modify_pics.xml</string>
+
+    <string name="dummytext1">Begin - 1 This is text for the content_main.xml 2 This is text for the content_main.xml
+        3 This is text for the content_main.xml 4 This is text for the content_main.xml 5 This is text for the content_main.xml
+        6 This is text for the content_main.xml 7 This is text for the content_main.xml 8 This is text for the content_main.xml</string>
 </resources>

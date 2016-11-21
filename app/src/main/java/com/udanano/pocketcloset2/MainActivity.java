@@ -2,6 +2,8 @@ package com.udanano.pocketcloset2;
 
 import android.content.Intent;
 ;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -9,6 +11,7 @@ import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.FileProvider;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -18,9 +21,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.GridView;
+import android.widget.ImageView;
+import android.widget.Toast;
+import android.widget.ViewFlipper;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
+import com.squareup.picasso.Picasso;
 
 import java.io.File;
 import java.io.IOException;
@@ -31,6 +39,9 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
         static final int CAM_REQUEST = 1;
 
+        SQLiteOpenHelper dbhelper;
+        SQLiteDatabase database;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,7 +51,7 @@ public class MainActivity extends AppCompatActivity
 
         AdView adView = (AdView) findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder()
-                //learned that if you comment out the line below, you get read ads
+                //learned that if you comment out the line below, you get real ads
                 //DO NOT DO THAT LOL
                 .addTestDevice("238827E5D4D7C2CCE1B4E0AAC867E1AD")
                 .build();
@@ -81,8 +92,6 @@ public class MainActivity extends AppCompatActivity
 //                if (camera_intent.resolveActivity(getPackageManager()) != null) {
 //                    startActivityForResult(camera_intent, CAM_REQUEST); }
 
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
             }
         });
 
@@ -94,6 +103,7 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
     }
 
     @Override
@@ -132,10 +142,15 @@ public class MainActivity extends AppCompatActivity
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
+
+        ViewFlipper vf = (ViewFlipper)findViewById(R.id.vf);
+
         int id = item.getItemId();
 
         if (id == R.id.nav_camera) {
-            // Handle the camera action
+            // Handle the click, etc
+            vf.setDisplayedChild(0);
+            Log.i("@@@", "nav_camera clicked");
         } else if (id == R.id.nav_gallery) {
 
         } else if (id == R.id.nav_slideshow) {
@@ -166,7 +181,7 @@ public class MainActivity extends AppCompatActivity
         // Create an image file name
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
         String imageFileName = "PocketCloset_" + timeStamp + "_";
-
+        Log.i("@@@", timeStamp);
         File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
 
 
@@ -195,6 +210,24 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data){
         super.onActivityResult(requestCode, resultCode, data);
+        //now: just a toast to show where to put your "after the pic was taken" code
+        //later: do something with the pic you just took
+        String picLocation = mCurrentPhotoPath;
+        Log.e("@@@", mCurrentPhotoPath);
+        Toast.makeText(this, picLocation, Toast.LENGTH_SHORT).show();
+
+        ImageView imgPreview = (ImageView)findViewById(R.id.img_preview);
+
+        Picasso.with(this)
+                .load(mCurrentPhotoPath)
+                .into(imgPreview);
+
+        ViewFlipper vf = (ViewFlipper)findViewById(R.id.vf);
+        vf.setDisplayedChild(1);
+        Log.i("@@@", "vf code ran");
+
+        GridView gridView = (GridView) findViewById(R.id.gridview_clothes);
+
         galleryAddPic();
     }
 }
