@@ -13,4 +13,16 @@
     <string name="dummytext1">Begin - 1 This is text for the content_main.xml 2 This is text for the content_main.xml
         3 This is text for the content_main.xml 4 This is text for the content_main.xml 5 This is text for the content_main.xml
         6 This is text for the content_main.xml 7 This is text for the content_main.xml 8 This is text for the content_main.xml</string>
+
+    <string name="category_prompt">Choose a category</string>
+
+    <string-array name="clothing_category_arrays">
+        <item>Hats</item>
+        <item>Torso</item>
+        <item>Legs</item>
+        <item>Feet</item>
+        <item>Outerwear</item>
+        <item>Accessories</item>
+        <item>Misc</item>
+    </string-array>
 </resources>

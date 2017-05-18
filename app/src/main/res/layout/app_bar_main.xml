@@ -26,7 +26,8 @@
     <ViewFlipper xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/vf"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
         <include android:id="@+id/include_main" layout="@layout/content_main" />
         <include android:id="@+id/include_modify" layout="@layout/modify_pics" />
     </ViewFlipper>

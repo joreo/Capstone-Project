@@ -23,6 +23,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.RadioGroup;
+import android.widget.Spinner;
 import android.widget.Toast;
 import android.widget.ViewFlipper;
 
@@ -229,5 +231,32 @@ public class MainActivity extends AppCompatActivity
         GridView gridView = (GridView) findViewById(R.id.gridview_clothes);
 
         galleryAddPic();
+    }
+
+////trying what Alex_234 suggested -- http://stackoverflow.com/questions/8323778/how-to-set-on-click-listener-on-the-radio-button-in-android/8323973#8323973
+//    RadioGroup radioGroup = (RadioGroup) findViewById(R.id.pics_radiogroup);
+//    radioGroup.setOnCheckedChangeListener(new OnCheckedChangeListener()
+//    {
+//        @Override
+//                public void onCheckedChanged(RadioGroup group, int checkedId){
+//
+//    }
+//
+//    });
+
+//what i've been trying http://stackoverflow.com/questions/9844061/android-how-do-i-enable-disable-a-checkbox-depending-on-a-radio-button-being-s
+    public void onCheckedChanged(RadioGroup group, int checkedId){
+
+       Spinner mySpinner = (Spinner) findViewById(R.id.category_spinner);
+
+        switch(checkedId){
+            case R.id.selfie_radio:
+               mySpinner.setEnabled(false);
+               break;
+
+            case R.id.clothing_radio:
+                mySpinner.setEnabled(true);
+                break;
+        }
     }
 }

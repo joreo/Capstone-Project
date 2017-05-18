@@ -11,7 +11,7 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.udanano.pocketcloset2.MainActivity"
-    tools:showIn="@layout/app_bar_main">
+   >
     <!--tools:showIn="@layout/app_bar_main"-->
 
 <LinearLayout
@@ -24,15 +24,18 @@
         android:id="@+id/img_preview"
         android:src="@drawable/scruffy"
         />
-<LinearLayout
+
+
+
+    <LinearLayout
     android:layout_width="0dip"
-    android:layout_height="60dp"
+    android:layout_height="wrap_content"
     android:orientation="vertical"
     android:layout_weight="1">
     <RadioGroup
         android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_alignBottom="@id/img_preview">
+        android:layout_height="50dp"
+        android:id="@+id/pics_radiogroup">
         <RadioButton
             android:id="@+id/selfie_radio"
             android:layout_width="match_parent"
@@ -45,6 +48,32 @@
             android:text="Clothing"
             />
     </RadioGroup>
+        <Spinner
+            android:id="@+id/category_spinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="visible"
+            android:entries="@array/clothing_category_arrays"
+            android:prompt="@string/category_prompt"
+            />
+        <EditText
+            android:layout_width="match_parent"
+            android:id="@+id/picture_description"
+            android:hint="Describe this pic"
+            android:inputType="text|textMultiLine"
+            android:selectAllOnFocus="true"
+            tools:text="display test"
+            android:contentDescription="category"
+            android:textAppearance="@style/TextAppearance.AppCompat"
+            android:layout_height="80dp"
+            style="@style/Widget.AppCompat.EditText"
+            android:singleLine="false" />
+        <Button
+            android:id="@+id/btnSubmit"
+            android:layout_width="match_parent"
+            android:text="Submit"
+            android:layout_height="wrap_content" />
+
     </LinearLayout>
     </LinearLayout>
 
