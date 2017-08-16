@@ -1,9 +1,9 @@
 package com.udanano.pocketcloset2;
 
-import android.provider.BaseColumns;
+        import android.provider.BaseColumns;
 
 /**
- * Created by rawk on 8/16/2017.
+ * Created by JB on 8/16/2017.
  */
 
 public class TableData {

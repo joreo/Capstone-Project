@@ -21,6 +21,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.RadioButton;
@@ -273,11 +274,43 @@ public class MainActivity extends AppCompatActivity
     public void onSubmit(View v){
         //when submit is pressed: show this toast
         Toast.makeText(getApplicationContext(), "I've been clicked!", Toast.LENGTH_SHORT).show();
+
+        //get the text from the form
+        //pic
+        String picture = mCurrentPhotoPath;
+        //desc
+        final EditText descField = (EditText) findViewById(R.id.picture_description);
+        String desc = descField.getText().toString();
+
+        //cat
+        //if radio button = selfie, cat=selfie
+        //else cat = combo box section
+
+        final Spinner feedbackSpinner = (Spinner) findViewById(R.id.category_spinner);
+        final RadioButton feedbackRadio = (RadioButton) findViewById(R.id.clothing_radio);
+
+        String cat;
+        if (feedbackRadio.isChecked()) {
+            cat = feedbackSpinner.getSelectedItem().toString();
+            Toast.makeText(getApplicationContext(), "1 The cat is " + cat , Toast.LENGTH_SHORT).show();
+        } else {
+            cat = "Selfie";
+            Toast.makeText(getApplicationContext(), "2 The cat is " + cat , Toast.LENGTH_SHORT).show();
+        }
+        //date
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+        String currentDate = sdf.format(new Date());
+        Toast.makeText(getApplicationContext(), currentDate , Toast.LENGTH_SHORT).show();
+
         //do a DB add
         ClothesDBOpenHelper DB = new ClothesDBOpenHelper(this);
-        DB.addEntry(DB, "1", "image", "desc", "cat", "date");
-        Toast.makeText(getApplicationContext(), "I've been added to the DB!", Toast.LENGTH_SHORT).show();
-        //go back home
 
+        //DB, path to clothes picture, description text box, cat (selfie or clothing), current date
+        DB.addEntry(DB, picture, desc, cat, currentDate);
+
+        //go back home
+        setContentView(R.layout.activity_main);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
     }
 }

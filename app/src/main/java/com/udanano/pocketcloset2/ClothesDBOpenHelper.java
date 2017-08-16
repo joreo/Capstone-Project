@@ -31,7 +31,7 @@ public class ClothesDBOpenHelper extends SQLiteOpenHelper {
                 COLUMN_IMAGE + " TEXT, " +
                 COLUMN_DESC + " TEXT, " +
                 COLUMN_CAT + " TEXT, " +
-                COLUMN_LAST_DATE + " TEXT, " +
+                COLUMN_LAST_DATE + " TEXT " +
                 ")";
 
 
@@ -55,10 +55,11 @@ public class ClothesDBOpenHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public void addEntry(ClothesDBOpenHelper dop, String cloth_id, String cloth_image, String cloth_desc, String cloth_cat, String cloth_last_date){
+    public void addEntry(ClothesDBOpenHelper dop, String cloth_image, String cloth_desc, String cloth_cat, String cloth_last_date){
         SQLiteDatabase SQ = dop.getWritableDatabase();
         ContentValues cv = new ContentValues();
-        cv.put(TableData.TableInfo.COLUMN_ID, cloth_id);
+        //i *think* i leave the ID blank since I want it to be an autoincrement
+        //cv.put(TableData.TableInfo.COLUMN_ID, cloth_id);
         cv.put(TableData.TableInfo.COLUMN_IMAGE, cloth_image);
         cv.put(TableData.TableInfo.COLUMN_DESC, cloth_desc);
         cv.put(TableData.TableInfo.COLUMN_CAT, cloth_cat);
