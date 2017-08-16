@@ -23,6 +23,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -105,6 +106,26 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        //disable the combobox/spinner when radio button sellected
+        final Spinner mySpinner = (Spinner) findViewById(R.id.category_spinner);
+        RadioGroup radioGroup = (RadioGroup) findViewById(R.id.pics_radiogroup);
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener()
+        {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId){
+                switch(checkedId){
+                    case R.id.selfie_radio:
+                        mySpinner.setEnabled(false);
+                        break;
+
+                    case R.id.clothing_radio:
+                        mySpinner.setEnabled(true);
+                        break;
+                }
+            }
+
+        });
 
     }
 
@@ -233,17 +254,6 @@ public class MainActivity extends AppCompatActivity
         galleryAddPic();
     }
 
-////trying what Alex_234 suggested -- http://stackoverflow.com/questions/8323778/how-to-set-on-click-listener-on-the-radio-button-in-android/8323973#8323973
-//    RadioGroup radioGroup = (RadioGroup) findViewById(R.id.pics_radiogroup);
-//    radioGroup.setOnCheckedChangeListener(new OnCheckedChangeListener()
-//    {
-//        @Override
-//                public void onCheckedChanged(RadioGroup group, int checkedId){
-//
-//    }
-//
-//    });
-
 //what i've been trying http://stackoverflow.com/questions/9844061/android-how-do-i-enable-disable-a-checkbox-depending-on-a-radio-button-being-s
     public void onCheckedChanged(RadioGroup group, int checkedId){
 
@@ -258,5 +268,16 @@ public class MainActivity extends AppCompatActivity
                 mySpinner.setEnabled(true);
                 break;
         }
+    }
+
+    public void onSubmit(View v){
+        //when submit is pressed: show this toast
+        Toast.makeText(getApplicationContext(), "I've been clicked!", Toast.LENGTH_SHORT).show();
+        //do a DB add
+        ClothesDBOpenHelper DB = new ClothesDBOpenHelper(this);
+        DB.addEntry(DB, "1", "image", "desc", "cat", "date");
+        Toast.makeText(getApplicationContext(), "I've been added to the DB!", Toast.LENGTH_SHORT).show();
+        //go back home
+
     }
 }

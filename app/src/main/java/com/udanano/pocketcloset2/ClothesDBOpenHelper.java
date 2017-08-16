@@ -1,5 +1,6 @@
 package com.udanano.pocketcloset2;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -50,7 +51,18 @@ public class ClothesDBOpenHelper extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion){
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_CLOTHES);
+        Log.i(LOGTAG, "Table has been upgraded");
         onCreate(db);
+    }
+
+    public void addEntry(ClothesDBOpenHelper dop, String cloth_id, String cloth_image, String cloth_desc, String cloth_cat, String cloth_last_date){
+        SQLiteDatabase SQ = dop.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put(TableData.TableInfo.COLUMN_ID, cloth_id);
+        cv.put(TableData.TableInfo.COLUMN_IMAGE, cloth_image);
+        cv.put(TableData.TableInfo.COLUMN_DESC, cloth_desc);
+        cv.put(TableData.TableInfo.COLUMN_CAT, cloth_cat);
+        cv.put(TableData.TableInfo.COLUMN_LAST_DATE, cloth_last_date);
     }
 
 }

@@ -72,7 +72,8 @@
             android:id="@+id/btnSubmit"
             android:layout_width="match_parent"
             android:text="Submit"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:onClick="onSubmit"/>
 
     </LinearLayout>
     </LinearLayout>
