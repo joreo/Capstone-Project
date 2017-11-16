@@ -2,6 +2,7 @@ package com.udanano.pocketcloset2;
 
 import android.content.Intent;
 ;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.net.Uri;
@@ -21,6 +22,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageView;
@@ -43,8 +45,8 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
         static final int CAM_REQUEST = 1;
 
-        SQLiteOpenHelper dbhelper;
-        SQLiteDatabase database;
+        //SQLiteOpenHelper dbhelper;
+        SQLiteDatabase mDB;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +64,27 @@ public class MainActivity extends AppCompatActivity
 
         adView.loadAd(adRequest);
 
+        //moved from onSubmit to here
+        ClothesDBOpenHelper dbHelper = new ClothesDBOpenHelper(this);
+        //like the lesson todo 3 - GET WRITABLE DB ref using getwritabledatabase and store it in database (
+        mDB = dbHelper.getWritableDatabase();
+        //todo 4 for fake data - currently unneeded
+
+        //todo 7 run getallClothes and store it in a cursor
+        Cursor cursor = getAllClothes();
+
+        //do we have data?
+        String count = "SELECT count(*) FROM clothes";
+        Cursor mCursor = mDB.rawQuery(count, null);
+        mCursor.moveToFirst();
+        int icount = mCursor.getInt(0);
+        if(icount > 0) { Log.d("@@@Count = ", String.valueOf(icount)); }
+        else {Log.d("@@@Count, maybe 0, = ", String.valueOf(icount)); }
+
+            //testing data in the cursor
+        int cursorCount = cursor.getCount();
+        Log.d("@@@Cursor count", String.valueOf(cursorCount));
+
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,6 +94,10 @@ public class MainActivity extends AppCompatActivity
                 https://www.youtube.com/watch?v=je9bdkdNQqg
                 https://developer.android.com/training/camera/photobasics.html
                 **/
+
+                final Button submitButton = (Button) findViewById(R.id.btnSubmit);
+                submitButton.setEnabled(true);
+                submitButton.setClickable(true);
 
                 Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                 // Ensure that there's a camera activity to handle the intent
@@ -171,19 +198,23 @@ public class MainActivity extends AppCompatActivity
 
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
+        if (id == R.id.nav_everything) { //was nav_camera; if that helps
             // Handle the click, etc
             vf.setDisplayedChild(0);
             Log.i("@@@", "nav_camera clicked");
-        } else if (id == R.id.nav_gallery) {
+        } else if (id == R.id.nav_hats) {
 
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.nav_torso) {
 
-        } else if (id == R.id.nav_manage) {
+        } else if (id == R.id.nav_legs) {
 
-        } else if (id == R.id.nav_share) {
+        } else if (id == R.id.nav_feet) {
 
-        } else if (id == R.id.nav_send) {
+        } else if (id == R.id.nav_outerwear) {
+
+        } else if (id == R.id.nav_accessories) {
+
+        } else if (id == R.id.nav_misc) {
 
         }
 
@@ -205,7 +236,7 @@ public class MainActivity extends AppCompatActivity
         // Create an image file name
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
         String imageFileName = "PocketCloset_" + timeStamp + "_";
-        Log.i("@@@", timeStamp);
+        Log.i("@@@timestamp: ", timeStamp);
         File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
 
 
@@ -308,9 +339,33 @@ public class MainActivity extends AppCompatActivity
         //DB, path to clothes picture, description text box, cat (selfie or clothing), current date
         DB.addEntry(DB, picture, desc, cat, currentDate);
 
-        //go back home
-        setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        //get all db info, place into a cursor
+        Cursor cursor = getAllClothes();
+
+        //testing data in the cursor
+        int cursorCount = cursor.getCount();
+        Log.d("@@@Cursor count 2", String.valueOf(cursorCount));
+
+        //disable Submit button (enabled on FAB touch)
+        final Button submitButton = (Button) findViewById(R.id.btnSubmit);
+        submitButton.setEnabled(false);
+        submitButton.setClickable(false);
+
+        //clear the description box
+        descField.getText().clear();
+
+    }
+
+    private Cursor getAllClothes() {
+
+        return mDB.query(
+                TableData.TableInfo.TABLE_CLOTHES,
+                null,
+                null,
+                null,
+                null,
+                null,
+                TableData.TableInfo.COLUMN_ID
+        );
     }
 }

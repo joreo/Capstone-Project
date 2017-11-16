@@ -3,21 +3,37 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_camera"
-            android:icon="@drawable/ic_menu_camera"
-            android:title="Import" />
-        <item
-            android:id="@+id/nav_gallery"
+            android:id="@+id/nav_everything"
             android:icon="@drawable/ic_menu_gallery"
-            android:title="Gallery" />
+            android:title="Everything" />
         <item
-            android:id="@+id/nav_slideshow"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="Slideshow" />
+            android:id="@+id/nav_hats"
+            android:icon="@drawable/ic_menu_gallery"
+            android:title="Hats" />
         <item
-            android:id="@+id/nav_manage"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="Tools" />
+            android:id="@+id/nav_torso"
+            android:icon="@drawable/ic_menu_gallery"
+            android:title="Torso" />
+        <item
+            android:id="@+id/nav_legs"
+            android:icon="@drawable/ic_menu_gallery"
+            android:title="Legs" />
+        <item
+            android:id="@+id/nav_feet"
+            android:icon="@drawable/ic_menu_gallery"
+            android:title="Feet" />
+        <item
+            android:id="@+id/nav_outerwear"
+            android:icon="@drawable/ic_menu_gallery"
+            android:title="Outerwear" />
+        <item
+            android:id="@+id/nav_accessories"
+            android:icon="@drawable/ic_menu_gallery"
+            android:title="Accessories" />
+        <item
+            android:id="@+id/nav_misc"
+            android:icon="@drawable/ic_menu_gallery"
+            android:title="Misc" />
     </group>
 
     <item android:title="Communicate">

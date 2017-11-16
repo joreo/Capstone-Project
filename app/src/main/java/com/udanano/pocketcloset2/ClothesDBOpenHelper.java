@@ -14,6 +14,7 @@ public class ClothesDBOpenHelper extends SQLiteOpenHelper {
 
     //constructors and such
     private static final int DATABASE_VERSION = 1;
+    //change the DB number if we ever change the structure. Or need to dump the DB maybe?
     private static final String DATABASE_NAME = "clothes.db";
 
     private static final String LOGTAG = "POCKETCLOSET";
@@ -31,7 +32,7 @@ public class ClothesDBOpenHelper extends SQLiteOpenHelper {
                 COLUMN_IMAGE + " TEXT, " +
                 COLUMN_DESC + " TEXT, " +
                 COLUMN_CAT + " TEXT, " +
-                COLUMN_LAST_DATE + " TEXT " +
+                COLUMN_LAST_DATE + " TEXT " +  //this may need to change so date comparisons work
                 ")";
 
 
@@ -50,6 +51,7 @@ public class ClothesDBOpenHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion){
+        //we optioned to drop table on upgrades, but we can use an appropriate edit if we wanted to add columns or something instead
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_CLOTHES);
         Log.i(LOGTAG, "Table has been upgraded");
         onCreate(db);
@@ -64,6 +66,8 @@ public class ClothesDBOpenHelper extends SQLiteOpenHelper {
         cv.put(TableData.TableInfo.COLUMN_DESC, cloth_desc);
         cv.put(TableData.TableInfo.COLUMN_CAT, cloth_cat);
         cv.put(TableData.TableInfo.COLUMN_LAST_DATE, cloth_last_date);
+
+        Log.d("@@@Added to DB", "One row: " + cloth_desc);
     }
 
 }
