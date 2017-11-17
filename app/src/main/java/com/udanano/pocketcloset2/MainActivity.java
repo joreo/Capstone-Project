@@ -75,11 +75,19 @@ public class MainActivity extends AppCompatActivity
 
         //do we have data?
         String count = "SELECT count(*) FROM clothes";
+        //we confirmed that the table was made/found by renaming the above query with "clpthes" which makes the app crash
         Cursor mCursor = mDB.rawQuery(count, null);
         mCursor.moveToFirst();
         int icount = mCursor.getInt(0);
-        if(icount > 0) { Log.d("@@@Count = ", String.valueOf(icount)); }
-        else {Log.d("@@@Count, maybe 0, = ", String.valueOf(icount)); }
+
+        if(icount > 0)
+        {
+            Log.d("@@@Count = ", String.valueOf(icount));
+        }
+        else
+            {
+                Log.d("@@@Count, maybe 0, = ", "Seems to be 0");
+            }
 
             //testing data in the cursor
         int cursorCount = cursor.getCount();

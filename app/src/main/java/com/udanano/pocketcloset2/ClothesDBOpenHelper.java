@@ -13,7 +13,7 @@ import android.util.Log;
 public class ClothesDBOpenHelper extends SQLiteOpenHelper {
 
     //constructors and such
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
     //change the DB number if we ever change the structure. Or need to dump the DB maybe?
     private static final String DATABASE_NAME = "clothes.db";
 
