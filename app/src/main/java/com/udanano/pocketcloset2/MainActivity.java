@@ -275,8 +275,16 @@ public class MainActivity extends AppCompatActivity
         super.onActivityResult(requestCode, resultCode, data);
         //now: just a toast to show where to put your "after the pic was taken" code
         //later: do something with the pic you just took
-        String picLocation = mCurrentPhotoPath;
-        Log.e("@@@", mCurrentPhotoPath);
+
+        //mCurrentPhotoPath is sometimes blank, let's try to account for this:
+        String picLocation = "Empty?";
+        if (mCurrentPhotoPath != null)
+        {
+        picLocation = mCurrentPhotoPath;
+        }
+
+
+        Log.e("@@@", picLocation);
         Toast.makeText(this, picLocation, Toast.LENGTH_SHORT).show();
 
         ImageView imgPreview = (ImageView)findViewById(R.id.img_preview);
